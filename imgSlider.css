@@ -1,0 +1,10 @@
+image-slider{
+  display: inline-block;
+  float: left;
+  margin: 0.5em;
+  border-radius: 3px;
+  background: #FFF;
+  box-shadow: 0 1px 3px rgb(212, 45, 45);
+  font-family: Helvetica, arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
