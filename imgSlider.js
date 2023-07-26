@@ -1,38 +1,39 @@
-//這邊程式碼可以放到cdn
-import express from 'express'; //載入express框架模組
-import path from 'path';
 
-export default class {		//算是一種API(應該...
-    constructor(port) {
-        this.application = express();
-        this.port = port;
-        // this.application.use(bodyParser.json());
-        // this.pool;
-        this.__dirname = path.resolve();
-        this.application.use((_, res, next) => {
-            res.header('Cross-Origin-Opener-Policy', 'same-origin');
-            res.header('Cross-Origin-Embedder-Policy', 'require-corp');
-            next();
-        });
-    }
-    get app() {
-        return this.application;
-    }
-    start() {
-        this.application.listen(this.port, () => console.log(`Listening on port ${this.port}`))
-    }
-    setupHomepage(file) {
-        //讓localhost:3000/ 時會執行index.html
-        // __dirname -> 這個專案他的資料位置，也就是package.json這個檔案的資料夾路徑
-        this.application.get('/', (req, res) => { 
-            res.sendFile(this.__dirname + file);
-        });
-    }
+class ImageSlider extends HTMLElement {
+  constructor() {
+    
+    // Always call super first in constructor
+    super(); //蝜潭㗁htmlElement��撱箸�见��
+
+   
+    
+    // Create a standard img element and set its attributes.
+    var img = document.createElement('img');
+    //let images = this.getAttribute('data-images').split(",");
+    let images = ["https://pluralsight.imgix.net/paths/path-icons/nodejs-601628d09d.png","https://camo.githubusercontent.com/eb464a60a4a47f8b600aa71bfbc6aff3fe5c5392/68747470733a2f2f7261772e6769746875622e636f6d2f766f6f646f6f74696b69676f642f6c6f676f2e6a732f6d61737465722f6a732e706e67","https://camo.githubusercontent.com/891e94cd8dda7f40f451bb27067be513c230318a/68747470733a2f2f7261772e6769746875622e636f6d2f766f6f646f6f74696b69676f642f6c6f676f2e6a732f6d61737465722f626f676a732f6a732e706e67"]
+    console.log(images)
+
+    let currentImage = 1;
+    img.src = images[0];
+    img.width = '150';
+    img.height = '150';
+ 
+    
+   
+    // Add the image to the custom element.
+    this.appendChild(img);  //雿輻鍂鈭�htmlElement���䲮瘜�
+    setInterval(function(){
+      if(currentImage > images.length){
+        currentImage = 1;
+      }
+      img.src = images[currentImage - 1];
+      currentImage++;
+
+    },1000)
 
 
-
+  }
 }
 
-
-
-
+// Define the new element
+customElements.define('image-slider', ImageSlider);
